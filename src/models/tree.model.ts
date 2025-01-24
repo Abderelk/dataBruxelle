@@ -1,7 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 
 interface ITree {
-    id_arbres_cms: string | null;
     nom_fr: string;
     nom_nl: string;
     nom_la: string;
@@ -29,8 +28,6 @@ interface ITree {
 }
 
 const treeSchema: Schema = new Schema({
-    _id: { type: Schema.Types.ObjectId, required: true },
-    id_arbres_cms: { type: String },
     nom_fr: { type: String, required: true },
     nom_nl: { type: String, required: true },
     nom_la: { type: String, required: true },

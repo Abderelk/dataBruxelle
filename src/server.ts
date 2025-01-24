@@ -2,7 +2,7 @@ import express from 'express';
 import connectDB from './config/db';
 import dotenv from 'dotenv';
 import fetchData from './services/apiFetcher';
-import insertTreeData from './services/dbSeeder';
+import { insertTreeData, insertBData } from './services/dbSeeder';
 
 
 dotenv.config();
@@ -33,6 +33,16 @@ app.get('/fetch-and-store-trees', async (req, res) => {
         const url = 'https://opendata.brussels.be/api/explore/v2.1/catalog/datasets/bruxelles_arbres_remarquables/records?limit=20';
         const data = await fetchData(url);
         await insertTreeData(data);
+        res.status(200).send('Data inserted successfully');
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching or storing data' });
+    }
+});
+app.get('/fetch-and-store-db', async (req, res) => {
+    try {
+        const url = 'https://opendata.brussels.be/api/explore/v2.1/catalog/datasets/bruxelles_parcours_bd/records?limit=20';
+        const data = await fetchData(url);
+        await insertBData(data);
         res.status(200).send('Data inserted successfully');
     } catch (error) {
         res.status(500).json({ message: 'Error fetching or storing data' });
