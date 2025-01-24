@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  mongo:
+    image: mongo:latest
+    container_name: dcp_mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./dcp_mongo:/data/db
+    restart: always
